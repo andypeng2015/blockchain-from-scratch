@@ -40,7 +40,63 @@ impl StateMachine for ClothesMachine {
     type Transition = ClothesAction;
 
     fn next_state(starting_state: &ClothesState, t: &ClothesAction) -> ClothesState {
-        todo!("Exercise 3")
+        match (starting_state, t) {
+            (ClothesState::Tattered, _) => ClothesState::Tattered,
+            (ClothesState::Clean(f), ClothesAction::Wear) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Dirty(f - 1)
+            }
+            (ClothesState::Clean(f), ClothesAction::Wash) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Wet(f - 1)
+            }
+            (ClothesState::Clean(f), ClothesAction::Dry) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Clean(f - 1)
+            }
+            (ClothesState::Dirty(f), ClothesAction::Wear) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Dirty(f - 1)
+            }
+            (ClothesState::Dirty(f), ClothesAction::Wash) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Wet(f - 1)
+            }
+            (ClothesState::Dirty(f), ClothesAction::Dry) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Dirty(f - 1)
+            }
+            (ClothesState::Wet(f), ClothesAction::Wear) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Dirty(f - 1)
+            }
+            (ClothesState::Wet(f), ClothesAction::Wash) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Wet(f - 1)
+            }
+            (ClothesState::Wet(f), ClothesAction::Dry) => {
+                if *f == 1 {
+                    return ClothesState::Tattered;
+                }
+                ClothesState::Clean(f - 1)
+            }
+        }
     }
 }
 
